@@ -3,7 +3,8 @@
 ScriptPath=$0
 Dir=$(cd $(dirname "$ScriptPath"); pwd)
 Basename=$(basename "$ScriptPath")
-CMakePath=$Dir/_build
+CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
+MakeCmd=${SIS_CMAKE_COMMAND:-make}
 
 
 # ##########################################################
@@ -12,9 +13,8 @@ CMakePath=$Dir/_build
 while [[ $# -gt 0 ]]; do
     case $1 in
         --help)
+            [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
             cat << EOF
-rstrip is a small, standalone utility program that removes trailing whitespace from lines in its input
-Copyright (c) 2020-2024, Matthew Wilson and Synesis Information Systems
 Executes CMake-generated artefacts to (re)build project
 
 $ScriptPath [ ... flags/options ... ]

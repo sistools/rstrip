@@ -31,9 +31,8 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         --help)
 
+            [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
             cat << EOF
-rstrip is a small, standalone utility program that removes trailing whitespace from lines in its input
-Copyright (c) 2020-2024, Matthew Wilson and Synesis Information Systems
 Removes all known CMake artefacts
 
 $ScriptPath [ ... flags/options ... ]
