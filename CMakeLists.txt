@@ -127,8 +127,8 @@ option(BUILD_TESTING "Build tests" ON)
 #
 # required:
 # - CLASP;
+# - cstring;
 # - STLSoft;
-#
 #
 # required if testing enabled:
 # - Catch2 - required for testing;
@@ -169,6 +169,16 @@ set(CLASP_REQUIRED_VERSION_ 0.15)
 find_package(CLASP ${CLASP_REQUIRED_VERSION_} REQUIRED)
 
 message("-- CMake package CLASP found (version ${CLASP_VERSION}; ${CLASP_REQUIRED_VERSION_} requested)")
+
+
+# ############################
+# cstring
+
+set(cstring_REQUIRED_VERSION_ 0.2)  # pin to whatever you require
+
+find_package(cstring ${cstring_REQUIRED_VERSION_} REQUIRED)
+
+message("-- CMake package cstring found (version ${cstring_VERSION}; ${cstring_REQUIRED_VERSION_} requested)")
 
 
 # ############################
@@ -249,7 +259,7 @@ target_compile_options(${PROJECT_NAME_LOWER}
 
 target_link_libraries(${PROJECT_NAME_LOWER}
 	CLASP::core
-	cstring
+	cstring::core
 )
 
 install(TARGETS ${PROJECT_NAME_LOWER}
@@ -293,7 +303,7 @@ if(BUILD_TESTING)
 	target_link_libraries(${PROJECT_NAME_LOWER}_test
 		$<IF:$<STREQUAL:${Catch2_FOUND},>,,Catch2::Catch2>
 		CLASP::core
-		cstring
+		cstring::core
 		$<$<STREQUAL:${STLSOFT_INCLUDE_DIR},>:STLSoft::STLSoft>
 		xTests::core
 	)
