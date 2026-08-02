@@ -1,15 +1,22 @@
-# rstrip
+# rstrip <!-- omit in toc -->
 
 Strips trailing whitespace from all input lines
 
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Components](#components)
-4. [Examples](#examples)
-5. [Project Information](#project-information)
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Components](#components)
+- [Examples](#examples)
+- [Project Information](#project-information)
+  - [Where to get help](#where-to-get-help)
+  - [Contribution guidelines](#contribution-guidelines)
+  - [Dependencies](#dependencies)
+    - [Tests-only Dependencies](#tests-only-dependencies)
+  - [Related projects](#related-projects)
+  - [License](#license)
+
 
 ## Introduction
 
@@ -47,13 +54,16 @@ jkl*
 
 ## Project Information
 
+
 ### Where to get help
 
 [GitHub Page](https://github.com/sistools/rstrip "GitHub Page")
 
+
 ### Contribution guidelines
 
 Defect reports, feature requests, and pull requests are welcome on [the **cstring** GitHub page](https://github.com/sistools/rstrip).
+
 
 ### Dependencies
 

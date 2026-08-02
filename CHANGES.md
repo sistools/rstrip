@@ -1,6 +1,7 @@
 #  **rstrip** Changes
 
-## TBC
+
+## T.B.C.
 
 
 
