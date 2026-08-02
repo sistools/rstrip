@@ -146,7 +146,7 @@ if [ $status -eq 0 ]; then
     echo "Running all component and unit test programs"
   fi
 
-  for f in $(find $CMakeDir -type f '(' "${FindTestNameExpr[@]}" ')' -exec test -x {} \; -print)
+  while IFS= read -r f
   do
 
     if [ $ListOnly -ne 0 ]; then
@@ -170,7 +170,7 @@ if [ $status -eq 0 ]; then
 
       break 1
     fi
-  done
+  done < <(find "$CMakeDir" -type f '(' "${FindTestNameExpr[@]}" ')' -exec test -x {} \; -print)
 fi
 
 exit $status
