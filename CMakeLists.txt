@@ -19,7 +19,7 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 file(TO_CMAKE_PATH "${CMAKE_CURRENT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
 if(EXISTS "${LOC_PATH}")
 
-    message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
+	message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
 # directory for CMake specific extensions and source files.
@@ -30,9 +30,9 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 # project
 
 project(rstrip
-    DESCRIPTION "rstrip is a small, standalone utility program that removes trailing whitespace from lines in its input"
-    HOMEPAGE_URL "https://github.com/sistools/rstrip"
-    LANGUAGES C CXX
+	DESCRIPTION "rstrip is a small, standalone utility program that removes trailing whitespace from lines in its input"
+	HOMEPAGE_URL "https://github.com/sistools/rstrip"
+	LANGUAGES C CXX
 )
 
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
@@ -84,22 +84,22 @@ message("-- CMake package STLSoft found (version ${STLSoft_VERSION}; ${STLSoft_R
 
 if(BUILD_TESTING)
 
-    message("-- enabled building of tests ...")
+	message("-- enabled building of tests ...")
 
 
-    set(xTests_REQUIRED_VERSION_ 0.21.2)
+	set(xTests_REQUIRED_VERSION_ 0.21.2)
 
-    find_package(xTests ${xTests_REQUIRED_VERSION_} REQUIRED)
+	find_package(xTests ${xTests_REQUIRED_VERSION_} REQUIRED)
 
-    message("-- CMake package xTests found (version ${xTests_VERSION}; ${xTests_REQUIRED_VERSION_} requested)")
+	message("-- CMake package xTests found (version ${xTests_VERSION}; ${xTests_REQUIRED_VERSION_} requested)")
 
 
-    if(EXISTS ${CMAKE_SOURCE_DIR}/include)
+	if(EXISTS ${CMAKE_SOURCE_DIR}/include)
 
-        message("-- -- adding '${CMAKE_SOURCE_DIR}/include' to include-directories for testing")
+		message("-- -- adding '${CMAKE_SOURCE_DIR}/include' to include-directories for testing")
 
-        include_directories(${CMAKE_SOURCE_DIR}/include)
-    endif()
+		include_directories(${CMAKE_SOURCE_DIR}/include)
+	endif()
 endif(BUILD_TESTING)
 
 # ##########################################################
@@ -107,13 +107,13 @@ endif(BUILD_TESTING)
 
 if(UNIX AND APPLE)
 
-    message("-- -- adding '/usr/local/include' to include-directories")
+	message("-- -- adding '/usr/local/include' to include-directories")
 
-    include_directories(/usr/local/include)
+	include_directories(/usr/local/include)
 
-    message("-- -- adding '/usr/local/lib' to lib-directories")
+	message("-- -- adding '/usr/local/lib' to lib-directories")
 
-    link_directories(/usr/local/lib)
+	link_directories(/usr/local/lib)
 endif()
 
 
@@ -129,28 +129,28 @@ include(GNUInstallDirs)
 # tool - rstrip
 
 add_executable(rstrip
-    entry.c
-    rstrip.c
+	entry.c
+	rstrip.c
 )
 
 target_compile_options(rstrip PRIVATE
-    $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
-        -Werror -Wall -Wextra -pedantic
+	$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+		-Werror -Wall -Wextra -pedantic
 
-        -Wno-ignored-qualifiers
-        -Wno-incompatible-pointer-types-discards-qualifiers
-        -Wno-unused-parameter
-    >
-    $<$<CXX_COMPILER_ID:MSVC>: /WX /W4>
+		-Wno-ignored-qualifiers
+		-Wno-incompatible-pointer-types-discards-qualifiers
+		-Wno-unused-parameter
+	>
+	$<$<CXX_COMPILER_ID:MSVC>: /WX /W4>
 )
 
 target_link_libraries(rstrip
-    clasp
-    cstring
+	clasp
+	cstring
 )
 
 install(TARGETS rstrip
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 
@@ -161,29 +161,29 @@ include(CTest)
 
 if(BUILD_TESTING)
 
-    message("-- enabled building of tests ...")
+	message("-- enabled building of tests ...")
 
-    add_executable(rstrip_test
-        rstrip_test.cpp
-        rstrip.c
-    )
+	add_executable(rstrip_test
+		rstrip_test.cpp
+		rstrip.c
+	)
 
-    target_compile_options(rstrip_test PRIVATE
-        $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
-            -Werror -Wall -Wextra -pedantic
+	target_compile_options(rstrip_test PRIVATE
+		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+			-Werror -Wall -Wextra -pedantic
 
-            -Wno-deprecated-copy-with-user-provided-copy
-            -Wno-ignored-qualifiers
-            -Wno-incompatible-pointer-types-discards-qualifiers
-            -Wno-unused-parameter
-        >
-        $<$<CXX_COMPILER_ID:MSVC>: /WX /W4>
-    )
+			-Wno-deprecated-copy-with-user-provided-copy
+			-Wno-ignored-qualifiers
+			-Wno-incompatible-pointer-types-discards-qualifiers
+			-Wno-unused-parameter
+		>
+		$<$<CXX_COMPILER_ID:MSVC>: /WX /W4>
+	)
 
-    target_link_libraries(rstrip_test
-        clasp
-        cstring
-    )
+	target_link_libraries(rstrip_test
+		clasp
+		cstring
+	)
 endif(BUILD_TESTING)
 
 
