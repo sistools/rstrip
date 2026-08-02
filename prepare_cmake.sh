@@ -110,14 +110,13 @@ else
 
 fi
 
-
 status=0
 
 if [ $RunMake -ne 0 ]; then
 
-    echo "Executing make"
+  echo "Executing make"
 
-    make
+  make
 
   status=$?
 fi
@@ -126,8 +125,8 @@ cd ->/dev/null
 
 if [ $CMakeVerboseMakefile -ne 0 ]; then
 
-    echo -e "contents of $CMakeDir:"
-    ls -al $CMakeDir
+  echo -e "contents of $CMakeDir:"
+  ls -al $CMakeDir
 fi
 
 exit $status

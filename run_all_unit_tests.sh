@@ -3,7 +3,11 @@
 ScriptPath=$0
 Dir=$(cd $(dirname "$ScriptPath"); pwd)
 Basename=$(basename "$ScriptPath")
-CMakePath=$Dir/_build
+CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
+MakeCmd=${SIS_CMAKE_COMMAND:-make}
+
+ListOnly=0
+RunMake=1
 
 
 # ##########################################################
@@ -12,6 +16,14 @@ CMakePath=$Dir/_build
 while [[ $# -gt 0 ]]; do
 
   case $1 in
+    --list-only|-l)
+
+      ListOnly=1
+      ;;
+    --no-make|-M)
+
+      RunMake=0
+      ;;
     --help)
 
       [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
@@ -23,6 +35,14 @@ $ScriptPath [ ... flags/options ... ]
 Flags/options:
 
     behaviour:
+
+    -l
+    --list-only
+        lists the target programs but does not execute them
+
+    -M
+    --no-make
+        does not execute CMake and make before running tests
 
 
     standard flags:

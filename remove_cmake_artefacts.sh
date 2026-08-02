@@ -25,6 +25,30 @@ Files=(
 
 
 # ##########################################################
+# operating environment detection
+
+OsName="$(uname -s)"
+case "${OsName}" in
+  CYGWIN*|MINGW*|MSYS_NT*)
+
+    Directories+=(
+      ARM64
+      Win32
+      x64
+    )
+    Files+=(
+      "*.filters"
+      "*.sln"
+      "*.vcxproj"
+    )
+    ;;
+  *)
+
+    ;;
+esac
+
+
+# ##########################################################
 # command-line handling
 
 while [[ $# -gt 0 ]]; do
