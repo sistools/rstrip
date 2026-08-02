@@ -240,8 +240,12 @@ jobs:
           if [ "${{ inputs.c-compiler }}" = "mingw" ]; then
             export PATH="/mingw64/bin:$PATH"
           fi
-          # Use pwd so Windows runners pass a Git-Bash path (/d/a/...), not D:\...
-          SIS_CMAKE_BUILD_DIR="$(pwd)/build" ./run_all_unit_tests.sh -M -v
+          export SIS_CMAKE_BUILD_DIR="${{ github.workspace }}/build"
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            cmd.exe //c "run_all_unit_tests.cmd -M -v"
+          else
+            ./run_all_unit_tests.sh -M -v
+          fi
 
       - name: Install and verify
         shell: bash

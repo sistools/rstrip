@@ -21,23 +21,6 @@ Verbose=0
 
 
 # ##########################################################
-# operating environment detection
-
-OsName="$(uname -s)"
-case "${OsName}" in
-  CYGWIN*|MINGW*|MSYS_NT*)
-
-    # Restrict to *.exe so intermediate *.obj under CMakeFiles are not matched
-    FindTestNameExpr=( -name "*${ProjectName}*test*.exe" )
-    ;;
-  *)
-
-    FindTestNameExpr=( -name "*${ProjectName}*test*" )
-    ;;
-esac
-
-
-# ##########################################################
 # command-line handling
 
 while [[ $# -gt 0 ]]; do
@@ -106,22 +89,15 @@ done
 
 status=0
 
-# Canonicalise build-dir path (important on Windows Git Bash, where
-# SIS_CMAKE_BUILD_DIR may arrive with drive-letter backslashes).
-if [ -d "$CMakeDir" ]; then
-
-  CMakeDir=$(cd "$CMakeDir" && pwd)
-fi
-
 if [ $RunMake -ne 0 ]; then
 
   if [ $ListOnly -eq 0 ]; then
 
     echo "Executing build (via command \`$MakeCmd\`) and then running all component and unit test programs"
 
-    mkdir -p "$CMakeDir" || exit 1
+    mkdir -p $CMakeDir || exit 1
 
-    cd "$CMakeDir"
+    cd $CMakeDir
 
     $MakeCmd
     status=$?
@@ -146,7 +122,7 @@ if [ $status -eq 0 ]; then
     echo "Running all component and unit test programs"
   fi
 
-  while IFS= read -r f
+  for f in $(find $CMakeDir -type f '(' -name "*${ProjectName}*test*" ')' -exec test -x {} \; -print)
   do
 
     if [ $ListOnly -ne 0 ]; then
@@ -161,7 +137,7 @@ if [ $status -eq 0 ]; then
       echo "executing $f:"
     fi
 
-    if "$f"; then
+    if $f; then
 
       :
     else
@@ -170,7 +146,7 @@ if [ $status -eq 0 ]; then
 
       break 1
     fi
-  done < <(find "$CMakeDir" -type f '(' "${FindTestNameExpr[@]}" ')' -exec test -x {} \; -print)
+  done
 fi
 
 exit $status
