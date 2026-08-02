@@ -26,7 +26,7 @@ sistool_rstrip(
 {
     int         ch;
     cstring_t   cs = { 0 };
-    CSTRING_RC  rc;
+    CSTRING_RC  rc = CSTRING_RC_SUCCESS;
 
     ((void)&flags);
 
@@ -53,9 +53,7 @@ sistool_rstrip(
             {
                 if (0 != cs.len)
                 {
-                    CSTRING_RC rc2;
-
-                    rc2 = cstring_write(out, &cs, NULL);
+                    CSTRING_RC const rc2 = cstring_write(out, &cs, NULL);
 
                     if (CSTRING_RC_SUCCESS != rc2)
                     {
