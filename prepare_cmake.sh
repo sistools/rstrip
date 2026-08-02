@@ -18,19 +18,19 @@ RunMake=0
 while [[ $# -gt 0 ]]; do
 
   case $1 in
-    -v|--cmake-verbose-makefile)
+    --cmake-verbose-makefile|-v)
 
       CMakeVerboseMakefile=1
       ;;
-    -d|--debug-configuration)
+    --debug-configuration|-d)
 
       Configuration=Debug
       ;;
-    -T|--disable-testing)
+    --disable-testing|-T)
 
       CMakeTestingDisabled=1
       ;;
-    -m|--run-make)
+    --run-make|-m)
 
       RunMake=1
       ;;
