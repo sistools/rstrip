@@ -4,14 +4,55 @@ ScriptPath=$0
 Dir=$(cd $(dirname "$ScriptPath"); pwd)
 Basename=$(basename "$ScriptPath")
 CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
-MakeCmd=${SIS_CMAKE_COMMAND:-make}
+if [[ -n "$MSYSTEM" ]]; then
+
+  DefaultMakeCmd=mingw32-make.exe
+  MinGW=1
+else
+
+  DefaultMakeCmd=make
+fi
+MakeCmd=${SIS_CMAKE_MAKE_COMMAND:-${SIS_CMAKE_COMMAND:-$DefaultMakeCmd}}
+
+IgnoreRemainingFlagsAndOptions=0
+Targets=()
+
+
+# ##########################################################
+# functions
+
+function join_by { local IFS="$1"; shift; echo "$*"; }
 
 
 # ##########################################################
 # command-line handling
 
 while [[ $# -gt 0 ]]; do
+
+  if [ $IgnoreRemainingFlagsAndOptions -ne 0 ]; then
+
+    Targets+=($1)
+
+    shift
+
+    continue
+  else
+
+    if [ ! ${1:0:1} = '-' ]; then
+
+      Targets+=($1)
+
+      shift
+
+      continue
+    fi
+  fi
+
   case $1 in
+    --)
+
+      IgnoreRemainingFlagsAndOptions=1
+      ;;
     --help)
 
       [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
@@ -62,13 +103,20 @@ else
 
     >&2 echo "$ScriptPath: CMake build directory '$CMakeDir' does not contain expected file 'Makefile', so a clean cannot be performed. It is recommended that you remove all CMake artefacts using script 'remove_cmake_artefacts.sh' followed by regeneration via 'prepare_cmake.sh'"
 
+    cd ->/dev/null
+
     exit 1
   else
 
-      echo "Executing build (via command \`make\`)"
+    if [ -z "$Targets" ]; then
 
-    make
+      echo "Executing build (via command \`$MakeCmd\`)"
+    else
 
+      echo "Executing build (via command \`$MakeCmd\`) with specific target(s) $(join_by , "${Targets[@]}")"
+    fi
+
+    $MakeCmd ${Targets[*]}
     status=$?
 
     cd ->/dev/null

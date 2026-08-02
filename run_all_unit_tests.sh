@@ -4,7 +4,15 @@ ScriptPath=$0
 Dir=$(cd $(dirname "$ScriptPath"); pwd)
 Basename=$(basename "$ScriptPath")
 CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
-MakeCmd=${SIS_CMAKE_COMMAND:-make}
+if [[ -n "$MSYSTEM" ]]; then
+
+  DefaultMakeCmd=mingw32-make.exe
+  MinGW=1
+else
+
+  DefaultMakeCmd=make
+fi
+MakeCmd=${SIS_CMAKE_MAKE_COMMAND:-${SIS_CMAKE_COMMAND:-$DefaultMakeCmd}}
 
 ListOnly=0
 RunMake=1
@@ -69,38 +77,62 @@ done
 # ##########################################################
 # main()
 
-mkdir -p $CMakePath || exit 1
-
-cd $CMakePath
-
-echo "Executing make and then running all test programs"
-
 status=0
 
-if make; then
+if [ $RunMake -ne 0 ]; then
 
-    for f in $(find $Dir -type f -perm +111 '(' -name '*rstrip*test*' ')')
-    do
+  if [ $ListOnly -eq 0 ]; then
 
-        echo
-        echo "executing $f:"
+    echo "Executing build (via command \`$MakeCmd\`) and then running all component and unit test programs"
 
-      if $f; then
+    mkdir -p $CMakeDir || exit 1
 
-        :
-      else
+    cd $CMakeDir
 
-        status=$?
+    $MakeCmd
+    status=$?
 
-        break 1
-      fi
-    done
+    cd ->/dev/null
+  fi
 else
 
-    status=$?
+  if [ ! -d "$CMakeDir" ] || [ ! -f "$CMakeDir/CMakeCache.txt" ] || [ ! -d "$CMakeDir/CMakeFiles" ]; then
+
+    >&2 echo "$ScriptPath: cannot run in '--no-make' mode without a previous successful build step"
+  fi
 fi
 
-cd ->/dev/null
+if [ $status -eq 0 ]; then
+
+  if [ $ListOnly -ne 0 ]; then
+
+    echo "Listing all component and unit test programs"
+  else
+
+    echo "Running all component and unit test programs"
+  fi
+
+  for f in $(find $CMakeDir -type f '(' -name '*test*' ')' -exec test -x {} \; -print)
+  do
+
+    if [ $ListOnly -ne 0 ]; then
+
+      echo "would execute $f:"
+
+      continue
+    fi
+
+    if $f; then
+
+      :
+    else
+
+      status=$?
+
+      break 1
+    fi
+  done
+fi
 
 exit $status
 
