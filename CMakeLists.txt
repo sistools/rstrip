@@ -5,7 +5,7 @@
 # Purpose:  Top-level CMake lists file for rstrip
 #
 # Created:  2nd April 2020
-# Updated:  2nd August 2026
+# Updated:  3rd August 2026
 #
 # ######################################################################## #
 
@@ -54,9 +54,6 @@ set(PROJECT_VERSION_MAJOR ${_VERSION_MAJOR})
 set(PROJECT_VERSION_MINOR ${_VERSION_MINOR})
 set(PROJECT_VERSION_PATCH ${_VERSION_PATCH})
 set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
-
-message(NOTICE "Generating CMake build scripts for ${PROJECT_NAME} ${PROJECT_VERSION}")
-
 
 # adhere strictly to C and C++ standards plus extensions. These are actually
 # useless since we do not compile anything; they merely state our intention.
@@ -184,7 +181,16 @@ if(BUILD_TESTING)
 		clasp
 		cstring
 	)
+else(BUILD_TESTING)
+
+	message("-- disabled building of tests - define BUILD_TESTING to enable")
 endif(BUILD_TESTING)
+
+
+# ##########################################################
+# completion
+
+message(NOTICE "Generating CMake build scripts for ${PROJECT_NAME} ${PROJECT_VERSION}, for C${CMAKE_C_STANDARD} C++${CMAKE_CXX_STANDARD}")
 
 
 # ############################## end of file ############################# #
