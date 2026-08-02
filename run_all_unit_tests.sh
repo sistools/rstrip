@@ -10,12 +10,13 @@ CMakePath=$Dir/_build
 # command-line handling
 
 while [[ $# -gt 0 ]]; do
-    case $1 in
-        --help)
 
-            [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
-            cat << EOF
-Runs all (matching) unit-test programs
+  case $1 in
+    --help)
+
+      [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
+      cat << EOF
+Runs all (matching) component and unit test programs
 
 $ScriptPath [ ... flags/options ... ]
 
@@ -31,17 +32,17 @@ Flags/options:
 
 EOF
 
-            exit 0
-            ;;
-        *)
+      exit 0
+      ;;
+    *)
 
-            >&2 echo "$ScriptPath: unrecognised argument '$1'; use --help for usage"
+      >&2 echo "$ScriptPath: unrecognised argument '$1'; use --help for usage"
 
-            exit 1
-            ;;
-    esac
+      exit 1
+      ;;
+  esac
 
-    shift
+  shift
 done
 
 
@@ -64,15 +65,15 @@ if make; then
         echo
         echo "executing $f:"
 
-        if $f; then
+      if $f; then
 
-            :
-        else
+        :
+      else
 
-            status=$?
+        status=$?
 
-            break 1
-        fi
+        break 1
+      fi
     done
 else
 

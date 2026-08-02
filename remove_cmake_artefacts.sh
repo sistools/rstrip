@@ -3,24 +3,24 @@
 ScriptPath=$0
 Dir=$(cd $(dirname "$ScriptPath"); pwd)
 Basename=$(basename "$ScriptPath")
-CMakePath=$Dir/_build
+CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
 
 Directories=(
-    CMakeFiles
-    Testing
-    cmake
-    examples
-    projects
-    src
-    test
+  CMakeFiles
+  Testing
+  cmake
+  examples
+  projects
+  src
+  test
 )
 Files=(
-    CMakeCache.txt
-    CTestTestfile.cmake
-    DartConfiguration.tcl
-    Makefile
-    cmake_install.cmake
-    install_manifest.txt
+  CMakeCache.txt
+  CTestTestfile.cmake
+  DartConfiguration.tcl
+  Makefile
+  cmake_install.cmake
+  install_manifest.txt
 )
 
 
@@ -28,11 +28,12 @@ Files=(
 # command-line handling
 
 while [[ $# -gt 0 ]]; do
-    case $1 in
-        --help)
 
-            [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
-            cat << EOF
+  case $1 in
+    --help)
+
+      [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
+      cat << EOF
 Removes all known CMake artefacts
 
 $ScriptPath [ ... flags/options ... ]
@@ -49,68 +50,70 @@ Flags/options:
 
 EOF
 
-            exit 0
-            ;;
-        *)
+      exit 0
+      ;;
+    *)
 
-            >&2 echo "$ScriptPath: unrecognised argument '$1'; use --help for usage"
+      >&2 echo "$ScriptPath: unrecognised argument '$1'; use --help for usage"
 
-            exit 1
-            ;;
-    esac
+      exit 1
+      ;;
+  esac
 
-    shift
+  shift
 done
 
 
 # ##########################################################
 # main()
 
-if [ ! -d "$CMakePath" ]; then
+if [ ! -d "$CMakeDir" ]; then
 
-    echo "$ScriptPath: CMake build directory '$CMakePath' not found so nothing to do; use script 'prepare_cmake.sh' if you wish to prepare CMake artefacts"
+  echo "$ScriptPath: CMake build directory '$CMakeDir' not found so nothing to do; use script 'prepare_cmake.sh' if you wish to prepare CMake artefacts"
 
-    exit 0
+  exit 0
 else
 
-    echo "Removing all cmake artefacts in '$CMakePath'"
+  echo "Removing all cmake artefacts in '$CMakeDir'"
 
-    num_dirs_removed=0
-    num_files_removed=0
+  num_dirs_removed=0
+  num_files_removed=0
 
-    for d in ${Directories[@]}
-    do
-        fq_dir_path="$CMakePath/$d"
+  for d in ${Directories[@]}
+  do
 
-        [ -d "$fq_dir_path" ] || continue
+    fq_dir_path="$CMakeDir/$d"
 
-        echo "removing directory '$d'"
+    [ -d "$fq_dir_path" ] || continue
 
-        rm -dfr "$fq_dir_path"
+    echo "removing directory '$d'"
 
-        num_dirs_removed=$((num_dirs_removed+1))
-    done
+    rm -dfr "$fq_dir_path"
 
-    for f in ${Files[@]}
-    do
-        fq_file_path="$CMakePath/$f"
+    num_dirs_removed=$((num_dirs_removed+1))
+  done
 
-        [ -f "$fq_file_path" ] || continue
+  for f in ${Files[@]}
+  do
 
-        echo "removing file '$f'"
+    fq_file_path="$CMakeDir/$f"
 
-        rm -f "$fq_file_path"
+    [ -f "$fq_file_path" ] || continue
 
-        num_files_removed=$((num_files_removed+1))
-    done
+    echo "removing file '$f'"
 
-    if [ 0 -eq $num_dirs_removed ] && [ 0 -eq $num_files_removed ]; then
+    rm -f "$fq_file_path"
 
-        echo "nothing to do"
-    else
+    num_files_removed=$((num_files_removed+1))
+  done
 
-        echo "removed $num_dirs_removed directories and $num_files_removed files"
-    fi
+  if [ 0 -eq $num_dirs_removed ] && [ 0 -eq $num_files_removed ]; then
+
+    echo "nothing to do"
+  else
+
+    echo "removed $num_dirs_removed directories and $num_files_removed files"
+  fi
 fi
 
 

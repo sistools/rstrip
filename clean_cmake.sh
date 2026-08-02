@@ -11,11 +11,12 @@ MakeCmd=${SIS_CMAKE_COMMAND:-make}
 # command-line handling
 
 while [[ $# -gt 0 ]]; do
-    case $1 in
-        --help)
 
-            [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
-            cat << EOF
+  case $1 in
+    --help)
+
+      [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
+      cat << EOF
 Executes CMake-generated artefacts to clean project
 
 $ScriptPath [ ... flags/options ... ]
@@ -32,45 +33,45 @@ Flags/options:
 
 EOF
 
-            exit 0
-            ;;
-        *)
+      exit 0
+      ;;
+    *)
 
-            >&2 echo "$ScriptPath: unrecognised argument '$1'; use --help for usage"
+      >&2 echo "$ScriptPath: unrecognised argument '$1'; use --help for usage"
 
-            exit 1
-            ;;
-    esac
+      exit 1
+      ;;
+  esac
 
-    shift
+  shift
 done
 
 
 # ##########################################################
 # main()
 
-if [ ! -d "$CMakePath" ]; then
+if [ ! -d "$CMakeDir" ]; then
 
-    >&2 echo "$ScriptPath: CMake build directory '$CMakePath' not found so nothing to do; use script 'prepare_cmake.sh' if you wish to prepare CMake artefacts"
+  >&2 echo "$ScriptPath: CMake build directory '$CMakeDir' not found so nothing to do; use script 'prepare_cmake.sh' if you wish to prepare CMake artefacts"
 
-    exit 1
+  exit 1
 else
 
-    cd $CMakePath
+  cd $CMakeDir
 
-    if [ ! -f "$CMakePath/Makefile" ]; then
+  if [ ! -f "$CMakeDir/Makefile" ]; then
 
-        >&2 echo "$ScriptPath: CMake build directory '$CMakePath' does not contain expected file 'Makefile', so a clean cannot be performed. It is recommended that you remove all CMake artefacts using script 'remove_cmake_artefacts.sh' followed by regeneration via 'prepare_cmake.sh'"
+    >&2 echo "$ScriptPath: CMake build directory '$CMakeDir' does not contain expected file 'Makefile', so a clean cannot be performed. It is recommended that you remove all CMake artefacts using script 'remove_cmake_artefacts.sh' followed by regeneration via 'prepare_cmake.sh'"
 
-        exit 1
-    else
+    exit 1
+  else
 
-        echo "Cleaning build (via command \`make clean\`)"
+    echo "Cleaning build (via command \`make clean\`)"
 
-        make clean
+    make clean
 
-        cd ->/dev/null
-    fi
+    cd ->/dev/null
+  fi
 fi
 
 
