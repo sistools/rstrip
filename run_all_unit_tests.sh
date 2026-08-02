@@ -13,6 +13,7 @@ else
   DefaultMakeCmd=make
 fi
 MakeCmd=${SIS_CMAKE_MAKE_COMMAND:-${SIS_CMAKE_COMMAND:-$DefaultMakeCmd}}
+ProjectName=$(cat "$Dir/.sis/project_name.txt")
 
 ListOnly=0
 RunMake=1
@@ -112,7 +113,7 @@ if [ $status -eq 0 ]; then
     echo "Running all component and unit test programs"
   fi
 
-  for f in $(find $CMakeDir -type f '(' -name '*test*' ')' -exec test -x {} \; -print)
+  for f in $(find $CMakeDir -type f '(' -name "*${ProjectName}*test*" ')' -exec test -x {} \; -print)
   do
 
     if [ $ListOnly -ne 0 ]; then
