@@ -53,11 +53,11 @@ sistool_rstrip(
             {
                 if (0 != cs.len)
                 {
-                    CSTRING_RC rc;
+                    CSTRING_RC rc2;
 
-                    rc = cstring_write(out, &cs, NULL);
+                    rc2 = cstring_write(out, &cs, NULL);
 
-                    if (CSTRING_RC_SUCCESS != rc)
+                    if (CSTRING_RC_SUCCESS != rc2)
                     {
                         goto cstring_fail;
                     }
