@@ -174,7 +174,7 @@ message("-- CMake package CLASP found (version ${CLASP_VERSION}; ${CLASP_REQUIRE
 # ############################
 # cstring
 
-set(cstring_REQUIRED_VERSION_ 0.2)  # pin to whatever you require
+set(cstring_REQUIRED_VERSION_ 4)
 
 find_package(cstring ${cstring_REQUIRED_VERSION_} REQUIRED)
 
