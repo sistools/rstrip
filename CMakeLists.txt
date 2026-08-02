@@ -5,7 +5,7 @@
 # Purpose:  Top-level CMake lists file for rstrip
 #
 # Created:  2nd April 2020
-# Updated:  4th February 2024
+# Updated:  2nd August 2026
 #
 # ######################################################################## #
 
@@ -71,8 +71,8 @@ set(CMAKE_CXX_EXTENSIONS ON)
 # ##########################################################
 # dependencies (required)
 
-set(CLASP_REQUIRED_VERSION_ 0.14.0)
-set(STLSoft_REQUIRED_VERSION_ 0.10.6)
+set(CLASP_REQUIRED_VERSION_ 0.15)
+set(STLSoft_REQUIRED_VERSION_ 1.11)
 
 find_package(CLASP ${CLASP_REQUIRED_VERSION_} REQUIRED)
 
@@ -87,7 +87,7 @@ if(BUILD_TESTING)
 	message("-- enabled building of tests ...")
 
 
-	set(xTests_REQUIRED_VERSION_ 0.21.2)
+	set(xTests_REQUIRED_VERSION_ 0.26)
 
 	find_package(xTests ${xTests_REQUIRED_VERSION_} REQUIRED)
 
