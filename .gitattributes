@@ -1,5 +1,5 @@
 *.c linguist-language=C
-*.cmake linguist-language=CMake
+*.cmake linguist-vendored
 *.cmd linguist-detectable=false
 *.cpp linguist-language=C++
 *.cxx linguist-language=C++
@@ -12,6 +12,6 @@
 *.sh linguist-detectable=false
 *.sln linguist-detectable=false
 *.vcxproj linguist-detectable=false
-*.vimrc linguist-detectable=false
-CMakeLists.txt linguist-language=CMake
+*.vimrc linguist-vendored
+CMakeLists.txt linguist-vendored
 makefile linguist-detectable=false
