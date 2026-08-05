@@ -1,4 +1,4 @@
-# rstrip
+# rstrip <!-- omit in toc -->
 
 Strips trailing whitespace from all input lines
 

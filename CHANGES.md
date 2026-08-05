@@ -1,4 +1,4 @@
-#  **rstrip** Changes
+# rstrip Changes <!-- omit in toc -->
 
 ## TBC
 
