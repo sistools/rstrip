@@ -1,74 +1,41 @@
 
 # directories (by name)
 
+.classpath
+
+/.idea/
 /.svn/
 /.vs/
 
+/__pycache__/
+
+/_analyses/
 /_build/
 /_internal/
 
 /bin/
-/doc/
+/dox/
 /include/
 /lib/
 /node_modules/
-
-/include/b64/
-/include/shwild/
-/include/xcontract/
-/include/xcover/
-/include/xtests/
-
-/src/b64/
-/src/shwild/
-/src/xcontract/
-/src/xcover/
-/src/xtests/
-
-Debug Multithreaded DLL/
-Debug Multithreaded Dll/
-Debug Multithreaded pseudoUNIX/
-Debug Multithreaded pseudoUnix/
-Debug Multithreaded/
-Debug/
-DebugDLLUNIX/
-DebugDll/
-DebugMTDLL/
-DebugMt/
-DebugNox/
-DebugUNIX/
-DebugUnix/
-Release Multithreaded DLL/
-Release Multithreaded Dll/
-Release Multithreaded pseudoUNIX/
-Release Multithreaded pseudoUnix/
-Release Multithreaded/
-Release/
-ReleaseDLLUNIX/
-ReleaseDll/
-ReleaseMTDLL/
-ReleaseMt/
-ReleaseNox/
-ReleaseUnix/
-UDebug/
-UDebugMt/
-URelease/
-UReleaseMt/
-Unicode Debug Multithreaded DLL/
-Unicode Debug Multithreaded Dll/
-Unicode Debug Multithreaded/
-Unicode Debug/
-Unicode Release Multithreaded DLL/
-Unicode Release Multithreaded Dll/
-Unicode Release Multithreaded/
-Unicode Release/
-
-Win32/
-ipch/
-x64/
+/zips/
 
 
 # directories (by pattern)
+
+
+# sistools project directories
+
+/chomp*/
+/lnunique*/
+/lslocales*/
+/lstrip*/
+/mksock*/
+/ReadDebugString*/
+/realpath*/
+/rstrip*/
+/sistools-common-c*/
+/WriteDebugString*/
 
 
 # files (by name)
@@ -97,11 +64,9 @@ rstrip_test
 
 # files (by pattern)
 
-RCa0*
-RCb0*
-
 *~
 *.???_obj
+*.*~
 *.a
 *.app
 *.aps
@@ -111,6 +76,7 @@ RCb0*
 *.class
 *.csproj*user
 *.d
+*.diff
 *.dll
 *.dylib
 *.exe
@@ -144,7 +110,9 @@ RCb0*
 *.slo
 *.so
 *.suo
+*.sw[ponm]
 *.swp
+*.test
 *.tlog
 *.tmp
 *.unsuccessfulbuild
@@ -152,4 +120,16 @@ RCb0*
 *.vcxproj*user
 *.xcuserstate
 *.zip
+
+*.csproj*user
+*.vcproj*user
+*.vcxproj*user
+
+RCa0*
+RCb0*
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 
