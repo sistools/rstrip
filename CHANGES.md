@@ -1,7 +1,7 @@
 # **rstrip** Changes <!-- omit in toc -->
 
 
-## 0.1.1 - 3rd August 2026
+## 0.1.1 - 16th August 2026
 
 * Added modular GitHub Actions CI (**ci.yml** / **ci-cell.yml**) with Linux/macOS/Windows matrix (incl. **cstring** dependency install), tests, and install verification;
 * Modernised **CMakeLists.txt** (**CLASP** 0.15 / **cstring** / **STLSoft** 1.11 / **Catch2** / **xTests**; **CLASP::core** / **cstring::core** linkage; MSVC options; `BUILD_TESTING`);
