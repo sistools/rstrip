@@ -266,6 +266,11 @@ install(TARGETS ${PROJECT_NAME_LOWER}
 	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+install(FILES
+	doc/${PROJECT_NAME_LOWER}.1
+	DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
+)
+
 
 # ################################################
 # examples

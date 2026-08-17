@@ -266,3 +266,4 @@ jobs:
           else
             test -x "$PREFIX/bin/${PROJECT}"
           fi
+          test -f "$PREFIX/share/man/man1/${PROJECT}.1" || test -f "$PREFIX/man/man1/${PROJECT}.1"
