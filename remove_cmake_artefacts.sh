@@ -1,29 +1,12 @@
 #! /bin/bash
 
 ScriptPath=$0
-Dir=$(cd $(dirname "$ScriptPath"); pwd)
+Dir=$(cd "$(dirname "$ScriptPath")" && pwd)
 Basename=$(basename "$ScriptPath")
+
 CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
 ProjectNameFile="$Dir/.sis/project_name.txt"
 ProjectName=$(tr -d '[:space:]' < "$ProjectNameFile")
-
-# ##########################################################
-# colours
-
-if command -v tput > /dev/null; then
-
-  SisClr_Blue=${FG_BLUE:-$(tput setaf 4)}
-  SisClr_Red=${FG_RED:-$(tput setaf 1)}
-  SisClr_Bold=${FD_BOLD:-$(tput bold)}
-  SisClr_None=${FD_NONE:-$(tput sgr0)}
-else
-
-  SisClr_Blue=
-  SisClr_Red=
-  SisClr_Bold=
-  SisClr_None=
-fi
-
 
 Directories=(
   CMakeFiles
@@ -42,6 +25,24 @@ Files=(
   cmake_install.cmake
   install_manifest.txt
 )
+
+
+# ##########################################################
+# colours
+
+if command -v tput > /dev/null; then
+
+  SisClr_Blue=${FG_BLUE:-$(tput setaf 4)}
+  SisClr_Red=${FG_RED:-$(tput setaf 1)}
+  SisClr_Bold=${FD_BOLD:-$(tput bold)}
+  SisClr_None=${FD_NONE:-$(tput sgr0)}
+else
+
+  SisClr_Blue=
+  SisClr_Red=
+  SisClr_Bold=
+  SisClr_None=
+fi
 
 
 # ##########################################################
@@ -118,7 +119,7 @@ if [ ! -d "$CMakeDir" ]; then
   exit 0
 else
 
-  echo "Removing all cmake artefacts in '$CMakeDir'"
+  echo "Removing all ${SisClr_Blue}${SisClr_Bold}${ProjectName}${SisClr_None} cmake artefacts in '${SisClr_Blue}${SisClr_Bold}$CMakeDir${SisClr_None}'"
 
   num_dirs_removed=0
   num_files_removed=0
@@ -168,4 +169,3 @@ fi
 
 
 # ############################## end of file ############################# #
-

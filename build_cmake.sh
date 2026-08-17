@@ -1,11 +1,10 @@
 #! /bin/bash
 
 ScriptPath=$0
-Dir=$(cd $(dirname "$ScriptPath"); pwd)
+Dir=$(cd "$(dirname "$ScriptPath")" && pwd)
 Basename=$(basename "$ScriptPath")
+
 CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
-ProjectNameFile="$Dir/.sis/project_name.txt"
-ProjectName=$(tr -d '[:space:]' < "$ProjectNameFile")
 if [[ -n "$MSYSTEM" ]]; then
 
   DefaultMakeCmd=mingw32-make.exe
@@ -15,6 +14,8 @@ else
   DefaultMakeCmd=make
 fi
 MakeCmd=${SIS_CMAKE_MAKE_COMMAND:-${SIS_CMAKE_COMMAND:-$DefaultMakeCmd}}
+ProjectNameFile="$Dir/.sis/project_name.txt"
+ProjectName=$(tr -d '[:space:]' < "$ProjectNameFile")
 
 IgnoreRemainingFlagsAndOptions=0
 Targets=()
@@ -147,4 +148,3 @@ fi
 
 
 # ############################## end of file ############################# #
-

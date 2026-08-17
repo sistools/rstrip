@@ -1,8 +1,9 @@
 #! /bin/bash
 
 ScriptPath=$0
-Dir=$(cd $(dirname "$ScriptPath"); pwd)
+Dir=$(cd "$(dirname "$ScriptPath")" && pwd)
 Basename=$(basename "$ScriptPath")
+
 CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
 if [[ -n "$MSYSTEM" ]]; then
 
@@ -15,6 +16,11 @@ fi
 MakeCmd=${SIS_CMAKE_MAKE_COMMAND:-${SIS_CMAKE_COMMAND:-$DefaultMakeCmd}}
 ProjectNameFile="$Dir/.sis/project_name.txt"
 ProjectName=$(tr -d '[:space:]' < "$ProjectNameFile")
+
+ListOnly=0
+RunMake=1
+Verbose=0
+
 
 # ##########################################################
 # colours
@@ -32,11 +38,6 @@ else
   SisClr_Bold=
   SisClr_None=
 fi
-
-
-ListOnly=0
-RunMake=1
-Verbose=0
 
 
 # ##########################################################
@@ -127,7 +128,7 @@ else
 
   if [ ! -d "$CMakeDir" ] || [ ! -f "$CMakeDir/CMakeCache.txt" ] || [ ! -d "$CMakeDir/CMakeFiles" ]; then
 
-    >&2 echo "$ScriptPath: cannot run in '--no-make' mode without a previous successful build step"
+    >&2 echo "$ScriptPath: ${SisClr_Red}${SisClr_Bold}cannot run in '--no-make' mode without a previous successful build step${SisClr_None}"
   fi
 fi
 
@@ -146,14 +147,14 @@ if [ $status -eq 0 ]; then
 
     if [ $ListOnly -ne 0 ]; then
 
-      echo "would execute $f:"
+      echo "would execute ${SisClr_Blue}${SisClr_Bold}$f${SisClr_None}:"
 
       continue
     fi
 
     if [ $Verbose -ne 0 ]; then
 
-      echo "executing $f:"
+      echo "executing ${SisClr_Blue}${SisClr_Bold}$f${SisClr_None}:"
     fi
 
     if $f; then

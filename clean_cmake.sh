@@ -1,11 +1,22 @@
 #! /bin/bash
 
 ScriptPath=$0
-Dir=$(cd $(dirname "$ScriptPath"); pwd)
+Dir=$(cd "$(dirname "$ScriptPath")" && pwd)
 Basename=$(basename "$ScriptPath")
+
 CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
+if [[ -n "$MSYSTEM" ]]; then
+
+  DefaultMakeCmd=mingw32-make.exe
+  MinGW=1
+else
+
+  DefaultMakeCmd=make
+fi
+MakeCmd=${SIS_CMAKE_MAKE_COMMAND:-${SIS_CMAKE_COMMAND:-$DefaultMakeCmd}}
 ProjectNameFile="$Dir/.sis/project_name.txt"
 ProjectName=$(tr -d '[:space:]' < "$ProjectNameFile")
+
 
 # ##########################################################
 # colours
@@ -23,16 +34,6 @@ else
   SisClr_Bold=
   SisClr_None=
 fi
-
-if [[ -n "$MSYSTEM" ]]; then
-
-  DefaultMakeCmd=mingw32-make.exe
-  MinGW=1
-else
-
-  DefaultMakeCmd=make
-fi
-MakeCmd=${SIS_CMAKE_MAKE_COMMAND:-${SIS_CMAKE_COMMAND:-$DefaultMakeCmd}}
 
 
 # ##########################################################
@@ -80,7 +81,7 @@ done
 
 if [ ! -d "$CMakeDir" ]; then
 
-  >&2 echo "$ScriptPath: CMake build directory '$CMakeDir' ${SisClr_Red}${SisClr_Bold}not found${SisClr_None} so nothing to do; use script 'prepare_cmake.sh' if you wish to prepare CMake artefacts"
+  >&2 echo "$ScriptPath: ${SisClr_Red}${SisClr_Bold}CMake build directory '$CMakeDir' not found${SisClr_None} so nothing to do; use script 'prepare_cmake.sh' if you wish to prepare CMake artefacts"
 
   exit 1
 else
@@ -89,14 +90,14 @@ else
 
   if [ ! -f "$CMakeDir/Makefile" ]; then
 
-    >&2 echo "$ScriptPath: ${SisClr_Red}${SisClr_Bold}CMake build directory '$CMakeDir' does not contain${SisClr_None} expected file 'Makefile', so a clean cannot be performed. It is recommended that you remove all CMake artefacts using script 'remove_cmake_artefacts.sh' followed by regeneration via 'prepare_cmake.sh'"
+    >&2 echo "$ScriptPath: ${SisClr_Red}${SisClr_Bold}CMake build directory '$CMakeDir' does not contain expected file 'Makefile'${SisClr_None}, so a clean cannot be performed. It is recommended that you remove all CMake artefacts using script 'remove_cmake_artefacts.sh' followed by regeneration via 'prepare_cmake.sh'"
 
     cd ->/dev/null
 
     exit 1
   else
 
-    echo "Cleaning build (via command \`$MakeCmd clean\`)"
+    echo "Cleaning ${SisClr_Blue}${SisClr_Bold}${ProjectName}${SisClr_None} (via command \`${SisClr_Blue}${SisClr_Bold}$MakeCmd clean${SisClr_None}\`)"
 
     $MakeCmd clean
     status=$?
@@ -109,4 +110,3 @@ fi
 
 
 # ############################## end of file ############################# #
-
