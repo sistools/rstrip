@@ -196,7 +196,7 @@ elseif(DEFINED ENV{STLSOFT})
 	set(STLSOFT_INCLUDE_DIR $ENV{STLSOFT}/include)
 else()
 
-	set(STLSoft_REQUIRED_VERSION_ 1.11)
+	set(STLSoft_REQUIRED_VERSION_ 1.11.1)
 
 	find_package(STLSoft ${STLSoft_REQUIRED_VERSION_} REQUIRED)
 
@@ -325,4 +325,3 @@ message(NOTICE "Generating CMake build scripts for ${PROJECT_NAME} ${PROJECT_VER
 
 
 # ############################## end of file ############################# #
-
