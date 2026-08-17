@@ -1,0 +1,51 @@
+# Doxyfile for rstrip (C API)
+
+PROJECT_NAME           = "rstrip"
+PROJECT_BRIEF          = "Strips trailing whitespace from input"
+PROJECT_NUMBER         = 0.1.1
+
+OUTPUT_DIRECTORY       = _build/doxygen
+CREATE_SUBDIRS         = NO
+
+INPUT                  = rstrip.h \
+                         rstrip.c \
+                         entry.c \
+                         doc
+FILE_PATTERNS          = *.h \
+                         *.c \
+                         *.md
+RECURSIVE              = NO
+EXCLUDE                =
+
+USE_MDFILE_AS_MAINPAGE = doc/mainpage.md
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+SEARCHENGINE           = YES
+SOURCE_BROWSER         = YES
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+
+MARKDOWN_SUPPORT       = YES
+JAVADOC_AUTOBRIEF      = YES
+QUIET                  = YES
+
+WARN_IF_UNDOCUMENTED   = YES
+WARN_NO_PARAMDOC       = YES
+WARN_IF_DOC_ERROR      = YES
+
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+PREDEFINED             =
+
+# ########################### end of file ########################### #
