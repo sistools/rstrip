@@ -5,17 +5,10 @@ Dir=$(cd "$(dirname "$ScriptPath")" && pwd)
 Basename=$(basename "$ScriptPath")
 
 CMakeDir=${SIS_CMAKE_BUILD_DIR:-$Dir/_build}
-if [[ -n "$MSYSTEM" ]]; then
-
-  DefaultMakeCmd=mingw32-make.exe
-  MinGW=1
-else
-
-  DefaultMakeCmd=make
-fi
-MakeCmd=${SIS_CMAKE_MAKE_COMMAND:-${SIS_CMAKE_COMMAND:-$DefaultMakeCmd}}
 ProjectNameFile="$Dir/.sis/project_name.txt"
 ProjectName=$(tr -d '[:space:]' < "$ProjectNameFile")
+
+DoxygenOptions=()
 
 
 # ##########################################################
@@ -42,11 +35,15 @@ fi
 while [[ $# -gt 0 ]]; do
 
   case $1 in
+    --quiet|-q)
+
+      DoxygenOptions=(-q)
+      ;;
     --help)
 
       [ -f "$Dir/.sis/script_info_lines.txt" ] && cat "$Dir/.sis/script_info_lines.txt"
       cat << EOF
-Executes CMake-generated artefacts to clean project
+Generates HTML API documentation from public headers via Doxygen
 
 $ScriptPath [ ... flags/options ... ]
 
@@ -54,11 +51,22 @@ Flags/options:
 
     behaviour:
 
+    -q
+    --quiet
+        causes the flag -q to be passed to Doxygen, which will then act as
+        if QUIET=YES has been set
+
 
     standard flags:
 
     --help
         displays this help and terminates
+
+Environment:
+
+    SIS_CMAKE_BUILD_DIR
+        CMake build directory (default: <project>/_build); documentation is
+        written to <build-dir>/doxygen/html/
 
 EOF
 
@@ -79,34 +87,28 @@ done
 # ##########################################################
 # main()
 
-if [ ! -d "$CMakeDir" ]; then
+mkdir -p $CMakeDir || exit 1
 
-  >&2 echo "$ScriptPath: ${SisClr_Red}${SisClr_Bold}CMake build directory '$CMakeDir' not found${SisClr_None} so nothing to do; use script 'prepare_cmake.sh' if you wish to prepare CMake artefacts"
+cd $CMakeDir
+
+echo "Executing Doxygen for ${SisClr_Blue}${SisClr_Bold}${ProjectName}${SisClr_None} (in ${SisClr_Blue}${SisClr_Bold}${CMakeDir}${SisClr_None})"
+
+command -v doxygen >/dev/null 2>&1 || {
+
+  >&2 printf "%s: ${SisClr_Red}${SisClr_Bold}doxygen not found on PATH${SisClr_None}\n" "$ScriptPath"
 
   exit 1
-else
+}
 
-  cd $CMakeDir
+mkdir -p "${CMakeDir}/doxygen" || exit 1
 
-  if [ ! -f "$CMakeDir/Makefile" ]; then
+{
+  cat Doxyfile
+  printf '\n# Output directory (overridden by %s)\n' "$Basename"
+  printf 'OUTPUT_DIRECTORY = %s/doxygen\n' "$CMakeDir"
+} | doxygen "${DoxygenOptions[@]}" -
 
-    >&2 echo "$ScriptPath: ${SisClr_Red}${SisClr_Bold}CMake build directory '$CMakeDir' does not contain expected file 'Makefile'${SisClr_None}, so a clean cannot be performed. It is recommended that you remove all CMake artefacts using script 'remove_cmake_artefacts.sh' followed by regeneration via 'prepare_cmake.sh'"
-
-    cd ->/dev/null
-
-    exit 1
-  else
-
-    echo "Cleaning ${SisClr_Blue}${SisClr_Bold}${ProjectName}${SisClr_None} (via command \`${SisClr_Blue}${SisClr_Bold}$MakeCmd clean${SisClr_None}\`)"
-
-    $MakeCmd clean
-    status=$?
-
-    cd ->/dev/null
-
-    exit $status
-  fi
-fi
+printf 'API documentation written to %s/doxygen/html/index.html\n' "$CMakeDir"
 
 
 # ############################## end of file ############################# #
