@@ -184,6 +184,11 @@ else()
 	message("-- CMake package STLSoft found (version ${STLSoft_VERSION}; ${STLSoft_REQUIRED_VERSION_} requested)")
 endif()
 
+if(DEFINED STLSOFT_INCLUDE_DIR)
+
+	include_directories("${STLSOFT_INCLUDE_DIR}")
+endif()
+
 
 # ############################
 # Catch2
