@@ -1,4 +1,4 @@
-# **rstrip** Changes <!-- omit in toc -->
+# rstrip Changes <!-- omit in toc -->
 
 
 ## 0.1.1 - 16th August 2026

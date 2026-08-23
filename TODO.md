@@ -1,4 +1,4 @@
-# rstrip - TODO list
+# rstrip - TODO list <!-- omit in toc -->
 
 
 ## rstrip 0.1.x TODOs:
