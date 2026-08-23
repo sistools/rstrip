@@ -69,7 +69,7 @@ jkl*
 
 ### Contribution guidelines
 
-Defect reports, feature requests, and pull requests are welcome on [the **cstring** GitHub page](https://github.com/sistools/rstrip).
+Defect reports, feature requests, and pull requests are welcome on the [**rstrip** GitHub page](https://github.com/sistools/rstrip).
 
 
 ### Dependencies
@@ -77,7 +77,7 @@ Defect reports, feature requests, and pull requests are welcome on [the **cstrin
 **rstrip** depends on:
 
 * [**CLASP**](https://github.com/synesissoftware/CLASP);
-* [**STLSoft 1.10**](https://github.com/synesissoftware/STLSoft-1.10);
+* [**STLSoft 1.11.1**](https://github.com/synesissoftware/STLSoft-1.10);
 * [**cstring**](https://github.com/synesissoftware/cstring);
 
 

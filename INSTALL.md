@@ -12,6 +12,7 @@
 The **rstrip** program (implemented in [**entry.c**](./entry.c)) is implemented in terms of:
 
 * [**CLASP**](https://github.com/synesissoftware/CLASP) - for command-line handling;
+* [**cstring**](https://github.com/synesissoftware/cstring) - for resizable C-style strings;
 * [**STLSoft**](https://github.com/synesissoftware/STLSoft-1.10) - for CLI utility functions;
 
 Further, the **rstrip_test** program (implemented in [**rstrip_test.cpp**](./rstrip_test.cpp)), which is used only to test the **rstrip** library, also depends on:
@@ -93,7 +94,7 @@ The primary choice for installation is by use of **CMake**.
     Synesis System Tools
     rstrip version 0.1.2.0
     Copyright (c) 2020-2024 Synesis Information Systems
-    Strips any leading whitespace, if present, from input lines
+    Strips any trailing whitespace, if present, from input lines
 
     rstrip [ ... flags/options ... ] [ { <input-file> | - } [ { <output-file> | - } ]]
 
@@ -118,7 +119,7 @@ The primary choice for installation is by use of **CMake**.
    and you will see output such as:
 
    ```plaintext
-    Executing make and then running all test programs
+    Executing build of rstrip (via command `make`) and then running all component and unit test programs
     [ 50%] Built target rstrip
     [100%] Built target rstrip_test
 
