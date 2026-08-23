@@ -5,7 +5,7 @@
 # Purpose:  Top-level CMake lists file for rstrip
 #
 # Created:  2nd April 2020
-# Updated:  3rd August 2026
+# Updated:  23rd August 2026
 #
 # ######################################################################## #
 
@@ -144,6 +144,37 @@ option(BUILD_TESTING "Build tests" ON)
 
 
 # ############################
+# STLSoft
+#
+# NOTE: This is resolved before other dependencies because the imported
+# CLASP::core target may reference STLSoft::STLSoft in its link interface,
+# so that target must be available before find_package(CLASP) loads CLASP's
+# target definitions.
+
+if(DEFINED STLSOFT)
+
+	message("-- STLSOFT provided as CMake variable with value '${STLSOFT}'")
+	set(STLSOFT_INCLUDE_DIR ${STLSOFT}/include)
+elseif(DEFINED ENV{STLSOFT})
+
+	message("-- STLSOFT provided as environment variable with value '$ENV{STLSOFT}'")
+	set(STLSOFT_INCLUDE_DIR $ENV{STLSOFT}/include)
+else()
+
+	set(STLSoft_REQUIRED_VERSION_ 1.11.1)
+
+	find_package(STLSoft ${STLSoft_REQUIRED_VERSION_} REQUIRED)
+
+	message("-- CMake package STLSoft found (version ${STLSoft_VERSION}; ${STLSoft_REQUIRED_VERSION_} requested)")
+endif()
+
+if(DEFINED STLSOFT_INCLUDE_DIR)
+
+	include_directories(${STLSOFT_INCLUDE_DIR})
+endif()
+
+
+# ############################
 # Catch2
 
 if(BUILD_TESTING)
@@ -187,34 +218,6 @@ find_package(cstring ${cstring_REQUIRED_VERSION_} REQUIRED)
 message("-- CMake package cstring found (version ${cstring_VERSION}; ${cstring_REQUIRED_VERSION_} requested)")
 
 	find_package(Catch2 ${Catch2_REQUIRED_VERSION_} QUIET)
-
-# ############################
-# STLSoft
-
-if(DEFINED STLSOFT)
-
-	message("-- STLSOFT provided as CMake variable with value '${STLSOFT}'")
-
-	set(STLSOFT_INCLUDE_DIR ${STLSOFT}/include)
-elseif(DEFINED ENV{STLSOFT})
-
-	message("-- STLSOFT provided as environment variable with value '$ENV{STLSOFT}'")
-
-	set(STLSOFT_INCLUDE_DIR $ENV{STLSOFT}/include)
-else()
-
-	set(STLSoft_REQUIRED_VERSION_ 1.11.1)
-
-	find_package(STLSoft ${STLSoft_REQUIRED_VERSION_} REQUIRED)
-
-	message("-- CMake package STLSoft found (version ${STLSoft_VERSION}; ${STLSoft_REQUIRED_VERSION_} requested)")
-endif()
-
-if(DEFINED STLSOFT_INCLUDE_DIR)
-
-	include_directories(${STLSOFT_INCLUDE_DIR})
-endif()
-
 
 # ############################
 # xTests
