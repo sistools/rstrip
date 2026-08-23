@@ -1,7 +1,7 @@
 # rstrip Changes <!-- omit in toc -->
 
 
-## 0.1.2 - 23rd August 2026
+## 0.1.2 - 24th August 2026
 
 * Added **Doxyfile**, **generate_doxygen.sh**, **doc/mainpage.md**, and **doc/rstrip.1**;
 * Added installation verification for the section-1 man page to **ci-cell.yml**;
