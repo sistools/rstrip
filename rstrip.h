@@ -4,7 +4,7 @@
 
 #define SISTOOL_RSTRIP_VER_MAJOR        0
 #define SISTOOL_RSTRIP_VER_MINOR        1
-#define SISTOOL_RSTRIP_VER_PATCH        1
+#define SISTOOL_RSTRIP_VER_PATCH        2
 
 
 /* *********************************************************

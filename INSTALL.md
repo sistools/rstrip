@@ -57,6 +57,18 @@ The primary choice for installation is by use of **CMake**.
 
    In this case, you do not need to have installed [**Catch2**](https://github.com/catchorg/Catch2) or [**xTests**](https://github.com/synesissoftware/xTests); otherwise, you will need to do so (as described in [**REQUISITES.md**](./REQUISITES.md)).
 
+   If **STLSoft** has not been installed, its source-tree root can be supplied with the `--stlsoft-root-dir` (or `-s`) option:
+
+    ```bash
+    $ ./prepare_cmake.sh --stlsoft-root-dir ~/open-source/STLSoft
+    ```
+
+   The same source-tree root can be supplied through the `STLSOFT` environment variable:
+
+    ```bash
+    $ STLSOFT=~/open-source/STLSoft ./prepare_cmake.sh
+    ```
+
 3. Run a build of the generated **CMake**-derived build files via the
    **build_cmake.sh** script, as in:
 
@@ -79,7 +91,7 @@ The primary choice for installation is by use of **CMake**.
 
     ```plaintext
     Synesis System Tools
-    rstrip version 0.1.1.0
+    rstrip version 0.1.2.0
     Copyright (c) 2020-2024 Synesis Information Systems
     Strips any leading whitespace, if present, from input lines
 

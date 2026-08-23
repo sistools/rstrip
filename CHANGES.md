@@ -1,6 +1,18 @@
 # rstrip Changes <!-- omit in toc -->
 
 
+## 0.1.2 - 24th August 2026
+
+* Added **Doxyfile**, **generate_doxygen.sh**, **doc/mainpage.md**, and **doc/rstrip.1**;
+* Added installation verification for the section-1 man page to **ci-cell.yml**;
+* Fixed **CMakeLists.txt** support for uninstalled **STLSoft** source trees supplied via **STLSOFT** or **--stlsoft-root-dir**;
+* Expanded **ci.yml** push-branch coverage;
+* Modernised **.gitattributes**, **.gitignore**, **.vimrc**, and **.vscode/settings.json**;
+* Updated **CMakeLists.txt** for C17/C++17 defaults, MSVC support, man-page installation, and build diagnostics;
+* Updated CMake helper scripts with project identification, diagnostics, and shared CMake build-directory support;
+* Updated **README.md**, **INSTALL.md**, **REQUISITES.md**, and **TODO.md**;
+
+
 ## 0.1.1 - 16th August 2026
 
 * Added modular GitHub Actions CI (**ci.yml** / **ci-cell.yml**) with Linux/macOS/Windows matrix (incl. **cstring** dependency install), tests, and install verification;

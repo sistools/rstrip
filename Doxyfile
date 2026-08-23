@@ -2,7 +2,7 @@
 
 PROJECT_NAME           = "rstrip"
 PROJECT_BRIEF          = "Strips trailing whitespace from input"
-PROJECT_NUMBER         = 0.1.1
+PROJECT_NUMBER         = 0.1.2
 
 OUTPUT_DIRECTORY       = _build/doxygen
 CREATE_SUBDIRS         = NO
