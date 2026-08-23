@@ -1,0 +1,2 @@
+rstrip is a small, standalone utility program that removes trailing whitespace from lines in its input
+Copyright (c) 2020-2026, Matthew Wilson and Synesis Information Systems
