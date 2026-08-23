@@ -186,6 +186,7 @@ find_package(cstring ${cstring_REQUIRED_VERSION_} REQUIRED)
 
 message("-- CMake package cstring found (version ${cstring_VERSION}; ${cstring_REQUIRED_VERSION_} requested)")
 
+	find_package(Catch2 ${Catch2_REQUIRED_VERSION_} QUIET)
 
 # ############################
 # STLSoft

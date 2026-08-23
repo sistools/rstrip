@@ -119,7 +119,7 @@ The primary choice for installation is by use of **CMake**.
 
     ```bash
     $ cd ~/open-source/rstrip
-    $ sudo cmake --install ./_build --config Release
+    $ sudo cmake --install ${SIS_CMAKE_BUILD_DIR:-./_build} --config Release
     ```
 
    This can be verified as follows:
