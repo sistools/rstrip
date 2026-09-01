@@ -93,7 +93,7 @@ The primary choice for installation is by use of **CMake**.
 
     ```plaintext
     Synesis System Tools
-    rstrip version 0.1.2.0
+    rstrip version 0.1.3.0
     Copyright (c) 2020-2024 Synesis Information Systems
     Strips any trailing whitespace, if present, from input lines
 
