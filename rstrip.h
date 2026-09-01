@@ -3,8 +3,9 @@
 #define SIS_INCL_H_RSTRIP
 
 #define SISTOOL_RSTRIP_VER_MAJOR        0
-#define SISTOOL_RSTRIP_VER_MINOR        1
-#define SISTOOL_RSTRIP_VER_PATCH        2
+#define SISTOOL_RSTRIP_VER_MINOR        2
+#define SISTOOL_RSTRIP_VER_PATCH        0
+#define SISTOOL_RSTRIP_VER_ALPHABETA    0xFF
 
 
 /* *********************************************************

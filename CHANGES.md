@@ -1,6 +1,13 @@
 # rstrip - Changes <!-- omit in toc -->
 
 
+## 0.2.0 - 1st September 2026
+
+* Consume **sistools-common-c** for `--help` / `--version` via **`stcc_show_help()`** / **`stcc_show_version()`**;
+* Version output now uses **Diagnosticism** version strings (via **sistools-common-c**);
+* Added **`SISTOOL_RSTRIP_VER_ALPHABETA`**;
+
+
 ## 0.1.2 - 24th August 2026
 
 * Added **Doxyfile**, **generate_doxygen.sh**, **doc/mainpage.md**, and **doc/rstrip.1**;
