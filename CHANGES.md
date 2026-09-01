@@ -3,6 +3,9 @@
 
 ## 0.2.0 - 1st September 2026
 
+* Fixed closing of **stdin** / **stdout** when input or output is a pipe;
+* Output-write failures are now reported and reflected in the exit code;
+* Replaced the deprecated **CLASP** alias terminology with `clasp_specification_t` and **`CLASP_SPECIFICATION_ARRAY_TERMINATOR`**;
 * Consume **sistools-common-c** for `--help` / `--version` via **`stcc_show_help()`** / **`stcc_show_version()`**;
 * Version output now uses **Diagnosticism** version strings (via **sistools-common-c**);
 * Added **`SISTOOL_RSTRIP_VER_ALPHABETA`**;
