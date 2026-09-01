@@ -125,6 +125,13 @@ jobs:
           cmake_configure "$STLSRC" "$STLBUILD"
           cmake_build_install "$STLBUILD"
 
+          # Diagnosticism (required by sistools-common-c)
+          DIAGSRC="${RUNNER_TEMP}/diagnosticism-src"
+          DIAGBUILD="${RUNNER_TEMP}/diagnosticism-build"
+          git clone --depth 1 https://github.com/synesissoftware/Diagnosticism "$DIAGSRC"
+          cmake_configure "$DIAGSRC" "$DIAGBUILD"
+          cmake_build_install "$DIAGBUILD"
+
           # Catch2 v2 + xTests (test-only)
           if [ "${{ inputs.with-test-deps }}" = "true" ]; then
             CATCHSRC="${RUNNER_TEMP}/catch2-src"
@@ -151,6 +158,13 @@ jobs:
             cmake_configure "$CLASPSRC" "$CLASPBUILD"
             cmake_build_install "$CLASPBUILD"
           fi
+
+          # sistools-common-c (required for usage helpers)
+          STCCSRC="${RUNNER_TEMP}/sistools-common-c-src"
+          STCCBUILD="${RUNNER_TEMP}/sistools-common-c-build"
+          git clone --depth 1 https://github.com/sistools/sistools-common-c "$STCCSRC"
+          cmake_configure "$STCCSRC" "$STCCBUILD"
+          cmake_build_install "$STCCBUILD"
 
           # cstring
           if [ "${{ inputs.with-cstring }}" = "true" ]; then

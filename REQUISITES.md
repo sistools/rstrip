@@ -5,6 +5,7 @@
 - [Installation by CMake](#installation-by-cmake)
   - [CLASP](#clasp)
   - [cstring](#cstring)
+  - [sistools-common-c](#sistools-common-c)
   - [Catch2 - required only for testing](#catch2---required-only-for-testing)
   - [STLSoft](#stlsoft)
   - [xTests - required only for testing](#xtests---required-only-for-testing)
@@ -17,6 +18,7 @@ The **rstrip** program (implemented in [**entry.c**](./entry.c)) is implemented 
 
 * [**CLASP**](https://github.com/synesissoftware/CLASP) - for command-line handling;
 * [**cstring**](https://github.com/synesissoftware/cstring) - for resizable C-style strings;
+* [**sistools-common-c**](https://github.com/sistools/sistools-common-c) - for shared `--help` / `--version` usage helpers;
 * [**STLSoft**](https://github.com/synesissoftware/) - for CLI utility functions;
 
 Further, the **rstrip_test** program (implemented in [**rstrip_test.cpp**](./rstrip_test.cpp)), which is used only to test the **rstrip** library, also depends on:
@@ -60,6 +62,24 @@ $ cd ~/open-source/cstring
 $ ./prepare_cmake.sh -m
 $ sudo cmake --install ${SIS_CMAKE_BUILD_DIR:-./_build} --config Release
 ```
+
+
+### sistools-common-c
+
+The **sistools-common-c** library provides shared helpers for **sistools** programs, including Diagnosticism-based `--help` / `--version` usage output.
+
+**sistools-common-c** is obtained from **https://github.com/sistools/sistools-common-c**, and it provides the means to install via **CMake**, as in the following:
+
+```bash
+$ mkdir -p ~/open-source
+$ cd ~/open-source
+$ git clone https://github.com/sistools/sistools-common-c
+$ cd ~/open-source/sistools-common-c
+$ ./prepare_cmake.sh -E -T -m
+$ sudo cmake --install ${SIS_CMAKE_BUILD_DIR:-./_build} --config Release
+```
+
+> **NOTE**: **sistools-common-c** itself depends on **CLASP**, **Diagnosticism**, and **STLSoft**; install those first (see its [INSTALL.md](https://github.com/sistools/sistools-common-c/blob/master/INSTALL.md)).
 
 
 ### Catch2 - required only for testing

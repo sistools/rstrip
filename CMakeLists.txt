@@ -5,7 +5,7 @@
 # Purpose:  Top-level CMake lists file for rstrip
 #
 # Created:  2nd April 2020
-# Updated:  23rd August 2026
+# Updated:  1st September 2026
 #
 # ######################################################################## #
 
@@ -134,6 +134,7 @@ option(BUILD_TESTING "Build tests" ON)
 # required:
 # - CLASP;
 # - cstring;
+# - sistools-common-c;
 # - STLSoft;
 #
 # required if testing enabled:
@@ -233,7 +234,16 @@ find_package(cstring ${cstring_REQUIRED_VERSION_} REQUIRED)
 
 message("-- CMake package cstring found (version ${cstring_VERSION}; ${cstring_REQUIRED_VERSION_} requested)")
 
-	find_package(Catch2 ${Catch2_REQUIRED_VERSION_} QUIET)
+
+# ############################
+# sistools-common-c
+
+set(sistools-common-c_REQUIRED_VERSION_ 0.1)
+
+find_package(sistools-common-c ${sistools-common-c_REQUIRED_VERSION_} REQUIRED)
+
+message("-- CMake package sistools-common-c found (version ${sistools-common-c_VERSION}; ${sistools-common-c_REQUIRED_VERSION_} requested)")
+
 
 # ############################
 # xTests
@@ -284,8 +294,11 @@ target_compile_options(${PROJECT_NAME_LOWER}
 )
 
 target_link_libraries(${PROJECT_NAME_LOWER}
-	CLASP::core
+	# CLASP and Diagnosticism come in via sistools-common-c::core
+	# (PUBLIC); listing CLASP::core again duplicates libclasp.a on the
+	# link line (Apple ld warning).
 	cstring::core
+	sistools-common-c::core
 )
 
 install(TARGETS ${PROJECT_NAME_LOWER}

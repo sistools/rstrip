@@ -77,8 +77,9 @@ Defect reports, feature requests, and pull requests are welcome on the [**rstrip
 **rstrip** depends on:
 
 * [**CLASP**](https://github.com/synesissoftware/CLASP);
-* [**STLSoft**](https://github.com/synesissoftware/STLSoft);
 * [**cstring**](https://github.com/synesissoftware/cstring);
+* [**sistools-common-c**](https://github.com/sistools/sistools-common-c);
+* [**STLSoft**](https://github.com/synesissoftware/STLSoft);
 
 
 #### Tests-only Dependencies

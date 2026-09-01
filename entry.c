@@ -7,8 +7,9 @@
 
 #include <clasp/clasp.h>
 
+#include <sistools/common/usage.h>
+
 #include <platformstl/filesystem/path_functions.h>
-#include <platformstl/system/console_functions.h>
 
 #include <errno.h>
 #include <stdio.h>
@@ -30,6 +31,7 @@
 #define PROGRAM_VER_MAJOR               SISTOOL_RSTRIP_VER_MAJOR
 #define PROGRAM_VER_MINOR               SISTOOL_RSTRIP_VER_MINOR
 #define PROGRAM_VER_PATCH               SISTOOL_RSTRIP_VER_PATCH
+#define PROGRAM_VER_ALPHABETA           SISTOOL_RSTRIP_VER_ALPHABETA
 #define SUMMARY                         "Synesis System Tools"
 #define COPYRIGHT                       "Copyright (c) 2020-2024 Synesis Information Systems"
 #define DESCRIPTION                     "Strips any trailing whitespace, if present, from input lines"
@@ -68,20 +70,16 @@ run(
 
     if (clasp_flagIsSpecified(args, "--help")) {
 
-        clasp_showUsage(
+        stcc_show_help(
             args
         ,   Aliases
+        ,   stdout
         ,   TOOLNAME
         ,   SUMMARY
         ,   COPYRIGHT
         ,   DESCRIPTION
         ,   USAGE
-        ,   PROGRAM_VER_MAJOR, PROGRAM_VER_MINOR, PROGRAM_VER_PATCH
-        ,   clasp_showHeaderByFILE, clasp_showBodyByFILE, stdout
-        ,   0
-        ,   (int)platformstl_C_get_console_width()
-        ,   -4
-        ,   1
+        ,   PROGRAM_VER_MAJOR, PROGRAM_VER_MINOR, PROGRAM_VER_PATCH, PROGRAM_VER_ALPHABETA
         );
 
         return EXIT_SUCCESS;
@@ -89,12 +87,10 @@ run(
 
     if (clasp_flagIsSpecified(args, "--version")) {
 
-        clasp_showVersion(
-            args
+        stcc_show_version(
+            stdout
         ,   TOOLNAME
-        ,   PROGRAM_VER_MAJOR, PROGRAM_VER_MINOR, PROGRAM_VER_PATCH
-        ,   clasp_showVersionByFILE, stdout
-        ,   0
+        ,   PROGRAM_VER_MAJOR, PROGRAM_VER_MINOR, PROGRAM_VER_PATCH, PROGRAM_VER_ALPHABETA
         );
 
         return EXIT_SUCCESS;
